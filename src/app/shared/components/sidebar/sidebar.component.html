@@ -1,0 +1,39 @@
+<button
+  class="btn btn-primary m-1 btn-sm z-3 position-absolute"
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#offcanvasExample"
+  aria-controls="offcanvasExample"
+  >
+  <!-- Icono de flecha -->
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+  </svg>
+</button>
+
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <!-- Title -->
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Slider Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <!-- Add URL -->
+  <div class="offcanvas-body">
+    <div class="dropdown mt-3">
+      <!-- Link Box -->
+      <input
+      type="text"
+      class="form-control"
+      placeholder="Add URL..."
+      (keyup.enter)="saveDashboardURL(txtInput.value); txtInput.value = ''"
+      #txtInput
+    >
+      <!-- List Links -->
+      <ul class="list-group mt-3"  *ngFor="let dashboard of dashboardsList; let i = index">
+        <li class="list-group-item"> {{ dashboard.link }} <button class="btn btn-close ms-4" (click)="deleteDashboard(i)"></button> </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
