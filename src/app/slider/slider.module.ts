@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IframeComponent } from './components/iframe/iframe.component';
 import { SecureUrlPipe } from './pipes/secure-url.pipe';
 
-
 @NgModule({
   declarations: [
     IframeComponent,

@@ -21,17 +21,43 @@
   <!-- Add URL -->
   <div class="offcanvas-body">
     <div class="dropdown mt-3">
-      <!-- Link Box -->
-      <input
-      type="text"
-      class="form-control"
-      placeholder="Add URL..."
-      (keyup.enter)="saveDashboardURL(txtInput.value); txtInput.value = ''"
-      #txtInput
-    >
+      <!-- Link Input -->
+       <div class="input-group">
+         <input
+            (keyup.enter)="saveDashboardURL(txtInput.value); txtInput.value = ''"
+            type="text"
+            class="form-control"
+            placeholder="Add URL..."
+            #txtInput
+            aria-describedby="button-addon2">
+          <button
+            (click)="saveDashboardURL(txtInput.value); txtInput.value = ''"
+            class="btn btn-primary"
+            type="button"
+            id="button-addon2">Save
+          </button>
+       </div>
       <!-- List Links -->
       <ul class="list-group mt-3"  *ngFor="let dashboard of dashboardsList; let i = index">
-        <li class="list-group-item"> {{ dashboard.link }} <button class="btn btn-close ms-4" (click)="deleteDashboard(i)"></button> </li>
+        <div class="input-group">
+          <!-- <button
+            class="btn btn-primary"
+            type="button"
+            id="button-addon1">Go
+          </button> -->
+          <input
+            disabled="true"
+            type="text"
+            class="form-control"
+            [placeholder]="'Dashboard '+ (i+1)"
+            aria-describedby="button-addon2">
+          <button
+            class="btn btn-secondary"
+            type="button"
+            id="button-addon2"
+            (click)="deleteDashboard(i)">x
+          </button>
+        </div>
       </ul>
 
     </div>

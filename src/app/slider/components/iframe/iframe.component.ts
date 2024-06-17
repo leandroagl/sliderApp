@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { SliderViewService } from '../../service/slider-view.service';
+import { Component, OnInit, signal } from '@angular/core';
+import { SwiperSlideService } from '../../service/slider-view.service';
 import { LinkDashboard } from '../../interfaces/link-dashboard.interface';
+
+// Elementos necesarios para tener todas las opciones de la libreria
+import { SwiperContainer } from 'swiper/element';
+import { SwiperOptions } from 'swiper/types';
+import { register } from 'swiper/element/bundle';
+register();
+
 
 @Component({
   selector: 'slider-iframe',
@@ -9,16 +16,43 @@ import { LinkDashboard } from '../../interfaces/link-dashboard.interface';
 })
 export class IframeComponent implements OnInit {
 
+  swiperElement = signal<SwiperContainer | null>(null);
+
   public linkList: LinkDashboard[] = [];
 
   public urlDashboard: string = '';
 
   constructor(
-    private sliderViewService: SliderViewService,
+    private _swiperSlideService: SwiperSlideService,
   ) {}
 
   ngOnInit(): void {
-    this.linkList = this.sliderViewService.cacheStore;
+    // Construyo a partir de la etiqueta
+    const swiperElementConstructor = document.querySelector('swiper-container');
+    // Seteo Opciones
+    const swiperOptions: SwiperOptions = {
+      effect: 'cube',
+      slidesPerView: 1,
+      slidesPerGroup: 1,
+      autoplay: {
+        delay: 40000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        enabled: true
+      },
+      speed: 500,
+      pagination: true
+    }
+
+    // Asigno las opciones al elemento construido
+    Object.assign(swiperElementConstructor!, swiperOptions);
+    // Seteo la señal tipandola
+    this.swiperElement.set( swiperElementConstructor as SwiperContainer )
+    // Inicializao el slider
+    this.swiperElement()?.initialize();
+
+    this.linkList = this._swiperSlideService.sliderCacheStorage;
   }
 
 

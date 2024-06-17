@@ -5,38 +5,31 @@ import { LinkDashboard } from '../interfaces/link-dashboard.interface';
   providedIn: 'root'
 })
 
-export class SliderViewService {
+export class SwiperSlideService {
 
-  public cacheStore: LinkDashboard[] = [];
+  public sliderCacheStorage: LinkDashboard[] = [];
   public dashboardsList: LinkDashboard[] = [];
 
   constructor() {
+    if( !localStorage.getItem('sliderAppCache') ) return;
     this.loadFromLocalStorage();
-    if( !this.cacheStore ) {
-      this.createDashboardCache();
-      this.dashboardsList = this.cacheStore
-    }
-  }
-
-  private createDashboardCache() {
-    localStorage.setItem('cacheStore', JSON.stringify(this.dashboardsList));
   }
 
   private saveOnLocalStorage() {
-    localStorage.setItem('cacheStore', JSON.stringify(this.cacheStore));
+    localStorage.setItem('sliderAppCache', JSON.stringify(this.sliderCacheStorage));
   }
 
   private loadFromLocalStorage() {
-    this.cacheStore = JSON.parse(localStorage.getItem('cacheStore')!)
+    this.sliderCacheStorage = JSON.parse(localStorage.getItem('sliderAppCache')!)
   }
 
   addToArray(objectURL: LinkDashboard) {
-    this.cacheStore.push(objectURL);
+    this.sliderCacheStorage.push(objectURL);
     this.saveOnLocalStorage()
   }
 
   deleteFromArray(index: number) {
-    this.cacheStore.splice(index, 1);
+    this.sliderCacheStorage.splice(index, 1);
     this.saveOnLocalStorage()
   }
 }

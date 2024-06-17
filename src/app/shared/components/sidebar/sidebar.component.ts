@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SliderViewService } from '../../../slider/service/slider-view.service';
+import { Component, OnInit, signal } from '@angular/core';
+import { SwiperSlideService } from '../../../slider/service/slider-view.service';
 import { LinkDashboard } from '../../../slider/interfaces/link-dashboard.interface';
 
 @Component({
@@ -11,25 +11,22 @@ export class SidebarComponent implements OnInit {
 
   public dashboardsList: LinkDashboard[] = [];
 
-  constructor(private sliderViewService: SliderViewService) { }
+  constructor( private _swiperSlideService: SwiperSlideService ) {}
 
   ngOnInit(): void {
     if (!this.dashboardsList) return;
-    this.dashboardsList = this.sliderViewService.cacheStore!;
+    this.dashboardsList = this._swiperSlideService.sliderCacheStorage!;
   }
 
-  saveDashboardURL(dashboardURL: string) {
-    if (dashboardURL.includes('https://metabase.ondra.com.ar')) {
-      const url: LinkDashboard = { link: dashboardURL }
-      this.sliderViewService.addToArray(url)
-    } else {
-      alert('Invalid URL');
-      return;
-    }
+  saveDashboardURL( dashboardURL: string ): void {
+    if ( !dashboardURL.includes('https://metabase.ondra.com.ar') ) return alert('Invalid URL');
+
+    const url: LinkDashboard = { link: `${dashboardURL}#theme=night&refresh=60` }
+    this._swiperSlideService.addToArray(url)
   }
 
-  deleteDashboard(index: number) {
-    this.sliderViewService.deleteFromArray(index)
+  deleteDashboard( index: number ): void {
+    this._swiperSlideService.deleteFromArray(index)
   }
 
 }
