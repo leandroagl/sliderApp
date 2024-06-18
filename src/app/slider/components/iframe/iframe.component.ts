@@ -35,7 +35,7 @@ export class IframeComponent implements OnInit {
       slidesPerView: 1,
       slidesPerGroup: 1,
       autoplay: {
-        delay: 40000,
+        delay: 45000,
         disableOnInteraction: false,
       },
       navigation: {
