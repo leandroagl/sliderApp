@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SliderModule } from '../slider/slider.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
   ],
   imports: [
     CommonModule,
+    SliderModule
   ],
   exports: [
     SidebarComponent

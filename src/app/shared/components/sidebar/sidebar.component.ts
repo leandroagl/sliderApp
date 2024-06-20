@@ -1,6 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SwiperSlideService } from '../../../slider/service/slider-view.service';
-import { LinkDashboard } from '../../../slider/interfaces/link-dashboard.interface';
+import { UrlDashboard } from '../../../slider/interfaces/link-dashboard.interface';
 
 @Component({
   selector: 'shared-sidebar',
@@ -9,7 +9,9 @@ import { LinkDashboard } from '../../../slider/interfaces/link-dashboard.interfa
 })
 export class SidebarComponent implements OnInit {
 
-  public dashboardsList: LinkDashboard[] = [];
+  public dashboardsList: UrlDashboard[] = [];
+
+  public touched: boolean = false;
 
   constructor( private _swiperSlideService: SwiperSlideService ) {}
 
@@ -18,15 +20,14 @@ export class SidebarComponent implements OnInit {
     this.dashboardsList = this._swiperSlideService.sliderCacheStorage!;
   }
 
-  saveDashboardURL( dashboardURL: string ): void {
-    if ( !dashboardURL.includes('https://metabase.ondra.com.ar') ) return alert('Invalid URL');
-
-    const url: LinkDashboard = { link: `${dashboardURL}#theme=night&refresh=60` }
-    this._swiperSlideService.addToArray(url)
-  }
-
   deleteDashboard( index: number ): void {
     this._swiperSlideService.deleteFromArray(index)
   }
+
+  markAsUntouched(status: boolean) {
+    this.touched = status;
+  }
+
+
 
 }

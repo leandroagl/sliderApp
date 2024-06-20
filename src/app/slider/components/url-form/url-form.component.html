@@ -1,0 +1,19 @@
+<!-- Link Input -->
+ <form [formGroup]="urlForm" (ngSubmit)="saveDashboardURL()">
+   <div class="input-group">
+     <input
+        formControlName="url"
+        type="text"
+        class="form-control"
+        placeholder="Add URL..."
+        aria-describedby="button-addon2">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        id="button-addon2">Save
+      </button>
+   </div>
+  <span *ngIf="isValidUrl('url')" class="form-text text-danger m-2">
+    Debe ser una URL de Metabase
+  </span>
+ </form>

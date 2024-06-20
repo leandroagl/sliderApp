@@ -1,5 +1,5 @@
 
 
-export interface LinkDashboard {
-  link: string;
+export interface UrlDashboard {
+  url: string;
 }

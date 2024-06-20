@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { SwiperSlideService } from '../../service/slider-view.service';
-import { LinkDashboard } from '../../interfaces/link-dashboard.interface';
+import { UrlDashboard } from '../../interfaces/link-dashboard.interface';
 
 // Elementos necesarios para tener todas las opciones de la libreria
 import { SwiperContainer } from 'swiper/element';
@@ -16,9 +16,10 @@ register();
 })
 export class IframeComponent implements OnInit {
 
-  swiperElement = signal<SwiperContainer | null>(null);
 
-  public linkList: LinkDashboard[] = [];
+  public swiperElement = signal<SwiperContainer | null>(null);
+
+  public dashboardsList: UrlDashboard[] = [];
 
   public urlDashboard: string = '';
 
@@ -35,7 +36,7 @@ export class IframeComponent implements OnInit {
       slidesPerView: 1,
       slidesPerGroup: 1,
       autoplay: {
-        delay: 40000,
+        delay: 45000,
         disableOnInteraction: false,
       },
       navigation: {
@@ -52,9 +53,8 @@ export class IframeComponent implements OnInit {
     // Inicializao el slider
     this.swiperElement()?.initialize();
 
-    this.linkList = this._swiperSlideService.sliderCacheStorage;
+    this.dashboardsList = this._swiperSlideService.sliderCacheStorage;
+
   }
-
-
 
 }
