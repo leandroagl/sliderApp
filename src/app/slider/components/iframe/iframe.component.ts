@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { SwiperSlideService } from '../../service/slider-view.service';
 import { UrlDashboard } from '../../interfaces/link-dashboard.interface';
 
@@ -16,16 +16,13 @@ register();
 })
 export class IframeComponent implements OnInit {
 
-
   public swiperElement = signal<SwiperContainer | null>(null);
 
   public dashboardsList: UrlDashboard[] = [];
 
   public urlDashboard: string = '';
 
-  constructor(
-    private _swiperSlideService: SwiperSlideService,
-  ) {}
+  private _swiperSlideService = inject( SwiperSlideService );
 
   ngOnInit(): void {
     // Construyo a partir de la etiqueta
@@ -34,6 +31,10 @@ export class IframeComponent implements OnInit {
     const swiperOptions: SwiperOptions = {
       effect: 'fade',
       slidesPerView: 1,
+      keyboard: {
+        enabled: true,
+        onlyInViewport: false
+      },
       slidesPerGroup: 1,
       autoplay: {
         delay: 45000,

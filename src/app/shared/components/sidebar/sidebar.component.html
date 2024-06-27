@@ -2,8 +2,8 @@
   class="btn btn-primary m-1 btn-sm z-3 position-absolute"
   type="button"
   data-bs-toggle="offcanvas"
-  data-bs-target="#offcanvasExample"
-  aria-controls="offcanvasExample"
+  data-bs-target="#sidebar"
+  aria-controls="sidebar"
   (click)="markAsUntouched(false)"
   >
   <!-- Icono de flecha -->
@@ -12,10 +12,10 @@
   </svg>
 </button>
 
-<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebar" aria-labelledby="sidebar">
   <!-- Title -->
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Slider Menu</h5>
+    <h5 class="offcanvas-title" id="sidebar">Slider Menu</h5>
     <button (click)="markAsUntouched(true)" type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
@@ -23,7 +23,7 @@
   <div class="offcanvas-body">
     <div class="dropdown mt-3">
 
-      <slider-url-form [closeSidebar]="touched"></slider-url-form>
+      <slider-url-form [resetOnClose]="touched()"></slider-url-form>
 
       <!-- List Links -->
       <ul class="list-group mt-3"  *ngFor="let dashboard of dashboardsList; let i = index">
