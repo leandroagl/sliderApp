@@ -32,11 +32,11 @@ export class IframeComponent implements OnInit {
     const swiperElementConstructor = document.querySelector('swiper-container');
     // Seteo Opciones
     const swiperOptions: SwiperOptions = {
-      effect: 'cube',
+      effect: 'fade',
       slidesPerView: 1,
       slidesPerGroup: 1,
       autoplay: {
-        delay: 45000,
+        delay: 2000,
         disableOnInteraction: false,
       },
       navigation: {
