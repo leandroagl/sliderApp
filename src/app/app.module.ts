@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
 import { SliderModule } from './slider/slider.module';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -13,8 +13,8 @@ import { SliderModule } from './slider/slider.module';
   imports: [
     AppRoutingModule,
     BrowserModule,
-    SharedModule,
-    SliderModule
+    SidebarComponent,
+    SliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
