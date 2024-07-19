@@ -22,10 +22,10 @@ export class UrlFormComponent implements OnChanges {
   })
 
   @Input()
-  public resetOnClose: boolean = false;
+  public resetFormOnClose: boolean = false;
 
   ngOnChanges(): void {
-    if( this.resetOnClose ) return this.urlForm.reset();
+    if( this.resetFormOnClose ) return this.urlForm.reset();
   }
 
   isValidUrl( url: string ) {
@@ -43,7 +43,6 @@ export class UrlFormComponent implements OnChanges {
     this.urlForm.reset({
       url: ''
     });
-    // this.urlForm.markAsUntouched()
   }
 
 
