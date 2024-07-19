@@ -1,4 +1,4 @@
-<swiper-container init="false" #swiperContainerDashboards >
+<swiper-container init="false" #swiperContainerDashboards>
   <!-- El pipe sanitiza el input del usuario y evita un ataque XSS sobre ese input -->
     <swiper-slide *ngFor="let obj of dashboardsList; let i = index; ">
       <iframe

@@ -1,10 +1,10 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { SwiperSlideService } from '../../service/slider-view.service';
 import { UrlDashboard } from '../../interfaces/link-dashboard.interface';
 
 // Elementos necesarios para tener todas las opciones de la libreria
 import { SwiperContainer } from 'swiper/element';
-import { SwiperOptions } from 'swiper/types';
+import { AutoplayOptions, SwiperOptions } from 'swiper/types';
 import { register } from 'swiper/element/bundle';
 register();
 
@@ -25,8 +25,21 @@ export class IframeComponent implements OnInit {
   private _swiperSlideService = inject( SwiperSlideService );
 
   ngOnInit(): void {
+
+    this.swiperInit(true, {delay: 59000, disableOnInteraction: false});
+    this.getCacheData();
+
+  }
+
+  getCacheData() {
+   this.dashboardsList = this._swiperSlideService.sliderCacheStorage;
+  }
+
+  swiperInit( autoplay?: boolean, options?: AutoplayOptions ) {
+
     // Construyo a partir de la etiqueta
     const swiperElementConstructor = document.querySelector('swiper-container');
+
     // Seteo Opciones
     const swiperOptions: SwiperOptions = {
       effect: 'fade',
@@ -36,15 +49,14 @@ export class IframeComponent implements OnInit {
         onlyInViewport: false
       },
       slidesPerGroup: 1,
-      autoplay: {
-        delay: 45000,
-        disableOnInteraction: false,
-      },
+      autoplay: autoplay || options,
       navigation: {
         enabled: true
       },
       speed: 500,
-      pagination: true
+      pagination: true,
+      observer: true,
+      lazyPreloadPrevNext: 0,
     }
 
     // Asigno las opciones al elemento construido
@@ -54,8 +66,8 @@ export class IframeComponent implements OnInit {
     // Inicializao el slider
     this.swiperElement()?.initialize();
 
-    this.dashboardsList = this._swiperSlideService.sliderCacheStorage;
-
   }
+
+
 
 }
