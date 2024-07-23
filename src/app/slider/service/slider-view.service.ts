@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { UrlDashboard } from '../interfaces/link-dashboard.interface';
 
 @Injectable({
@@ -6,9 +6,11 @@ import { UrlDashboard } from '../interfaces/link-dashboard.interface';
 })
 
 export class SwiperSlideService {
+  #sliderCache = signal<UrlDashboard[]>([])
 
-  public sliderCacheStorage: UrlDashboard[] = [];
-  public dashboardsList: UrlDashboard[] = [];
+  public computedSlideCache = computed<UrlDashboard[]>( () => this.#sliderCache() );
+
+  public restartSlider = signal<boolean>(false);
 
   constructor() {
     if( !localStorage.getItem('sliderAppCache') ) return;
@@ -17,21 +19,30 @@ export class SwiperSlideService {
   }
 
   private saveOnLocalStorage() {
-    localStorage.setItem('sliderAppCache', JSON.stringify(this.sliderCacheStorage));
+    localStorage.setItem( 'sliderAppCache', JSON.stringify(this.#sliderCache()) );
   }
 
   private loadFromLocalStorage() {
-    this.sliderCacheStorage = JSON.parse(localStorage.getItem('sliderAppCache')!)
+    this.#sliderCache.set(JSON.parse(localStorage.getItem('sliderAppCache')!))
   }
 
   saveOnStorage(objectURL: UrlDashboard) {
-    this.sliderCacheStorage.push(objectURL);
-    this.saveOnLocalStorage()
+    this.#sliderCache.update( value => [...value, objectURL ]);
+    this.saveOnLocalStorage();
+    this.loadFromLocalStorage();
   }
 
-  deleteFromArray(index: number) {
-    this.sliderCacheStorage.splice(index, 1);
-    this.saveOnLocalStorage()
+  deleteFromArray(index: number, dashboard: UrlDashboard) {
+    const cacheArray = this.#sliderCache();
+
+    cacheArray.splice( index, 1 )
+
+    this.#sliderCache.update(() => cacheArray );
+
+
+    this.saveOnLocalStorage();
+    this.loadFromLocalStorage();
   }
+
 
 }

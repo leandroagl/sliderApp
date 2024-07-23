@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SwiperSlideService } from '../../service/slider-view.service';
 import { UrlDashboard } from '../../interfaces/link-dashboard.interface';
 
@@ -9,12 +9,12 @@ import { UrlDashboard } from '../../interfaces/link-dashboard.interface';
 })
 export class DashboardListComponent {
 
-  @Input()
-  public dashboardsList: UrlDashboard[] = [];
-
   private _swiperSlideService = inject( SwiperSlideService )
 
-  deleteDashboard( index: number ): void {
-    this._swiperSlideService.deleteFromArray(index);
+  public dashboardsList = this._swiperSlideService.computedSlideCache
+
+
+  deleteDashboard( index: number, dashboard: UrlDashboard ): void {
+    this._swiperSlideService.deleteFromArray(index, dashboard);
   }
 }

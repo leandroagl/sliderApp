@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { IframeComponent } from './components/iframe/iframe.component';
 
 const routes: Routes = [
   {
-    path: 'slider',
-    loadChildren: () => import('./slider/slider.module').then( m => m.SliderModule )
+    path: '',
+    component: IframeComponent
   },
   {
     path: '**',
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class SliderRoutingModule { }
