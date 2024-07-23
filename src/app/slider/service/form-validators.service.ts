@@ -8,7 +8,7 @@ export class FormValidatorsService {
 
 // Validations
 public needIncludeMetabase =  (control: FormControl): ValidationErrors | null => {
-  const value: string = control.value.trim().toLowerCase();
+  const value: string = control.value.trim()!.toLowerCase()!;
   if( !value.includes('https://metabase.ondra.com.ar') ) return { notIncludeMetabase: true };
 
   return null;

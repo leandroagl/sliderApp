@@ -1,43 +1,23 @@
-<button
-  class="btn btn-primary m-1 btn-sm z-3 position-absolute"
-  type="button"
-  data-bs-toggle="offcanvas"
-  data-bs-target="#sidebar"
-  aria-controls="sidebar"
-  (click)="markAsUntouched(false)"
-  >
-  <!-- Icono de flecha -->
-  <svg xmlns="http://www.w3.org/2000/svg"
-       width="16"
-       height="16"
-       fill="currentColor"
-       class="bi bi-arrow-bar-right"
-       viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
-  </svg>
-</button>
-
-<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="sidebar" aria-labelledby="sidebar">
-  <!-- Title -->
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="sidebar">Slider Menu</h5>
-    <button
-      (click)="markAsUntouched(true)"
-      type="button"
-      class="btn-close btn-close-white"
-      data-bs-dismiss="offcanvas"
-      aria-label="Close">
+<mat-sidenav-container fullscreen>
+  <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '380px' }">
+    <button mat-icon-button (click)="sidenav.toggle(); markAsUntouched(false)">
+      <mat-icon>arrow_back</mat-icon>
     </button>
-  </div>
 
-  <!-- Add URL -->
-  <div class="offcanvas-body">
-    <div class="dropdown mt-3">
-
+    <div class="m-4">
       <slider-url-form [resetFormOnClose]="touched()"></slider-url-form>
-
-      <slider-dashboard-list [dashboardsList]="dashboardsList"></slider-dashboard-list>
-
     </div>
-  </div>
-</div>
+
+    <slider-dashboard-list></slider-dashboard-list>
+  </mat-sidenav>
+
+  <button
+    mat-icon-button
+    (click)="sidenav.toggle()"
+    class="m-1 z-3 position-absolute"
+  >
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+
+  <router-outlet></router-outlet>
+</mat-sidenav-container>
