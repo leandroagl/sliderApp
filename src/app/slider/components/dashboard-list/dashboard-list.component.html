@@ -1,22 +1,14 @@
-<!-- List Links -->
-<ul class="list-group mt-3"  *ngFor="let dashboard of dashboardsList; let i = index">
-  <div class="input-group">
-    <!-- <button
-      class="btn btn-primary"
-      type="button"
-      id="button-addon1">Go
-    </button> -->
-    <input
-      disabled="true"
-      type="text"
-      class="form-control"
-      [placeholder]="'Dashboard '+ (i+1)"
-      aria-describedby="button-addon2">
-    <button
-      class="btn btn-secondary"
-      type="button"
-      id="button-addon2"
-      (click)="deleteDashboard(i)">x
-    </button>
-  </div>
-</ul>
+@for (dashboard of dashboardsList(); track $index) {
+<div style="width: 185px; margin-left: 20px;">
+  <mat-nav-list>
+    <mat-list-item matListItemTitle>
+      <span (click)="deleteDashboard($index, dashboard)">
+        Dashboard {{ $index + 1 }}
+      </span>
+      <mat-icon matListItemIcon style="color: rgb(219, 131, 131)"
+        >delete</mat-icon
+      >
+    </mat-list-item>
+  </mat-nav-list>
+</div>
+}

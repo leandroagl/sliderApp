@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, inject, input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -21,11 +21,11 @@ export class UrlFormComponent implements OnChanges {
     url: [ '', [Validators.required, this._formValidatorsService.needIncludeMetabase ] ]
   })
 
-  @Input()
-  public resetOnClose: boolean = false;
+
+  public resetFormOnClose = input<boolean>(false);
 
   ngOnChanges(): void {
-    if( this.resetOnClose ) return this.urlForm.reset();
+    if( this.resetFormOnClose() ) return this.urlForm.reset();
   }
 
   isValidUrl( url: string ) {
@@ -36,14 +36,19 @@ export class UrlFormComponent implements OnChanges {
     if( this.urlForm.invalid ) return this.urlForm.markAllAsTouched();
 
     const formValue: UrlDashboard = this.urlForm.value;
-    const urlDashboard: UrlDashboard = {url:`${formValue.url}#theme=night&refresh=60`}
+    const urlDashboard: UrlDashboard = {url:`${formValue.url}#theme=night&refresh=60`};
 
-    this._swiperSliderService.saveOnStorage(urlDashboard)
+    this._swiperSliderService.saveOnStorage(urlDashboard);
 
     this.urlForm.reset({
       url: ''
     });
-    // this.urlForm.markAsUntouched()
+
+    this._swiperSliderService.restartSlider.set(true)
+  }
+
+  cleanForm(): void {
+    this.urlForm.reset();
   }
 
 

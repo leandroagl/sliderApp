@@ -1,33 +1,22 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { SwiperSlideService } from '../../../slider/service/slider-view.service';
-import { UrlDashboard } from '../../../slider/interfaces/link-dashboard.interface';
+import { Component, inject, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SliderModule } from '../../../slider/slider.module';
+import { MaterialModule } from '../../../material/material.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [ CommonModule, SliderModule, ],
+  imports: [ CommonModule, SliderModule, MaterialModule, RouterModule ],
   selector: 'shared-sidebar',
   templateUrl: './sidebar.component.html',
-  styles: ''
+  styles: '',
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent {
 
-  public dashboardsList: UrlDashboard[] = [];
-
-  public touched = signal(false)
-
-  private _swiperSlideService = inject( SwiperSlideService )
-
-  ngOnInit(): void {
-    if (!this.dashboardsList) return;
-    this.dashboardsList = this._swiperSlideService.sliderCacheStorage!;
-  }
+  public touched = signal(false);
 
   markAsUntouched( status: boolean ) {
     this.touched.set(status);
   }
-
-
 
 }
