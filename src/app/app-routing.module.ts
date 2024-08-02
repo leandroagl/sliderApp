@@ -12,8 +12,9 @@ const routes: Routes = [
   }
 ];
 
+// useHash necesario para montar la SPA en githubPages
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
